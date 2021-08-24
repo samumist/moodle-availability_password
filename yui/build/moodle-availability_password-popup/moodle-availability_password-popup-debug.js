@@ -115,7 +115,20 @@ M.availability_password.popup = {
                         }
                         if (details.success) {
                             if (details.redirect !== undefined) {
-                                document.location = details.redirect;
+                                // document.location = details.redirect;
+                                var redirect = details.redirect;
+                                var a = document.createElement('a');
+                                a.setAttribute('href',redirect);
+                                a.setAttribute('style','visibility:hidden');
+                                a.setAttribute('class','clickable-region');
+                                a.setAttribute('data-action','launch-tiles-module-modal')
+                                a.setAttribute('id', 'bb');
+                                a.text = 'gointo';
+                                document.getElementById('adiv').appendChild(a);
+                                // 关闭当前密码输入panel
+                                e.preventDefault();
+                                panel.hide();
+                                document.getElementById('bb').click();
                             } else {
                                 document.location.reload();
                             }
