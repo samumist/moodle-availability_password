@@ -85,8 +85,8 @@ M.availability_password.popup = {
         submit = function(e) {
             var data, password;
             e.preventDefault();
-
             password = Y.one(SELECTORS.PASSWORDFIELD).get('value').trim();
+
             if (password.length === 0) {
                 return; // Do nothing if the password is blank.
             }
@@ -117,8 +117,12 @@ M.availability_password.popup = {
                             if (details.redirect !== undefined) {
                                 // document.location = details.redirect;
                                 // simulate the click event in the a tag
-                                if(document.getElementById('a-tag-container')){
-                                    var redirect = details.redirect;
+                                var redirect = details.redirect;
+                                var hrefArr = redirect.split("=");
+                                var sectionId = hrefArr[1];
+                                var divid = "use_container_"+sectionId;
+                               // if existance of divid ,go to the block behind
+                                if(document.getElementById(divid)){
                                     var a = document.createElement('a');
                                     a.setAttribute('href',redirect);
                                     a.setAttribute('style','visibility:hidden');
@@ -126,7 +130,7 @@ M.availability_password.popup = {
                                     a.setAttribute('data-action','launch-tiles-module-modal');
                                     a.setAttribute('id', 'content-label');
                                     a.text = 'content-link';
-                                    document.getElementById('a-tag-container').appendChild(a);
+                                    document.getElementById(divid).appendChild(a);
                                     // Close the current panel of password
                                     e.preventDefault();
                                     panel.hide();
