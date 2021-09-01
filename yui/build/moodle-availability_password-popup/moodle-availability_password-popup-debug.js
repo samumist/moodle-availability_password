@@ -85,8 +85,8 @@ M.availability_password.popup = {
         submit = function(e) {
             var data, password;
             e.preventDefault();
-
             password = Y.one(SELECTORS.PASSWORDFIELD).get('value').trim();
+
             if (password.length === 0) {
                 return; // Do nothing if the password is blank.
             }
@@ -115,7 +115,29 @@ M.availability_password.popup = {
                         }
                         if (details.success) {
                             if (details.redirect !== undefined) {
-                                document.location = details.redirect;
+                                // document.location = details.redirect;
+                                // simulate the click event in the a tag
+                                var redirect = details.redirect;
+                                var hrefArr = redirect.split("=");
+                                var sectionId = hrefArr[1];
+                                var divid = "use_container_"+sectionId;
+                               // if existance of divid ,go to the block behind
+                                if(document.getElementById(divid)){
+                                    var a = document.createElement('a');
+                                    a.setAttribute('href',redirect);
+                                    a.setAttribute('style','visibility:hidden');
+                                    a.setAttribute('class','clickable-region');
+                                    a.setAttribute('data-action','launch-tiles-module-modal');
+                                    a.setAttribute('id', 'content-label');
+                                    a.text = 'content-link';
+                                    document.getElementById(divid).appendChild(a);
+                                    // Close the current panel of password
+                                    e.preventDefault();
+                                    panel.hide();
+                                    document.getElementById('content-label').click();
+                                }else{
+                                    document.location = details.redirect;
+                                }
                             } else {
                                 document.location.reload();
                             }
