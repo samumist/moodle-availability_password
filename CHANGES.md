@@ -4,6 +4,12 @@ moodle-availability_password
 Changes
 -------
 
+### v3.11-r1
+
+* 2021-06-13 - Prepare compatibility for Moodle 3.11.
+* 2021-06-13 - Added definition for a PHPUnit availability_cohort_testsuite.
+* 2021-06-13 - Added type parameter to save().
+
 ### v3.10-r2
 
 * 2021-02-05 - Move Moodle Plugin CI from Travis CI to Github actions
